@@ -55,63 +55,8 @@ module.exports = async ({ github, context }) => {
                         labels:["p1"]
 
                     })
-                   
-
-
-
-
-
                 }
-
-
             }
-
-
         }
-
-
-
-
     }
-
-
-
-
-
-
-
-    console.log(JSON.stringify(resp))
-
-
-
-    // if (context.payload.issue.state !== CONSTENT_VALUES.GLOBALS.STATE.CLOSED &&
-    //     context.payload.issue.user.login == context.payload.sender.login) {
-
-
-
-
-    //     for (const label of context.payload.issue.labels) {
-
-    //         if (label.name.includes(CONSTENT_VALUES.GLOBALS.LABELS.STALE)) {
-    //             console.log("Removing label: " + CONSTENT_VALUES.GLOBALS.LABELS.STALE)
-    //             await github.rest.issues.removeLabel({
-    //                 issue_number: context.issue.number,
-    //                 owner: context.repo.owner,
-    //                 repo: context.repo.repo,
-    //                 name: CONSTENT_VALUES.GLOBALS.LABELS.STALE
-
-    //             })
-    //         }
-    //         if (label.name.includes(CONSTENT_VALUES.GLOBALS.LABELS.AWAITINGRES)) {
-    //             console.log("Removing label : " + CONSTENT_VALUES.GLOBALS.LABELS.AWAITINGRES)
-    //             await github.rest.issues.removeLabel({
-    //                 issue_number: context.issue.number,
-    //                 owner: context.repo.owner,
-    //                 repo: context.repo.repo,
-    //                 name: CONSTENT_VALUES.GLOBALS.LABELS.AWAITINGRES
-
-    //             })
-    //         }
-    //     }
-    // }
 }
