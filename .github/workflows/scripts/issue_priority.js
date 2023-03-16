@@ -11,7 +11,7 @@ module.exports = async ({ github, context }) => {
     // console.log('issue latest commenter is ', context.payload.sender.login);
 
 
-   let resp =  await issues.listEventsForTimeline({
+   let resp =  await github.rest.issues.listEventsForTimeline({
     owner: context.repo.owner,
         repo:context.repo.repo,
         issue_number:1,
