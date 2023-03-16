@@ -10,14 +10,25 @@ module.exports = async ({ github, context }) => {
     // console.log('issue author is ', context.payload.issue.user.login);
     // console.log('issue latest commenter is ', context.payload.sender.login);
 
+    let issues = await github.rest.issues.listForRepo({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        state:"opend",
+        labels:"p0"
+    });
+  
+     console.log("line 20",issues)
 
-   let resp =  await github.rest.issues.listEventsForTimeline({
-    owner: context.repo.owner,
-        repo:context.repo.repo,
-        issue_number:1,
+
+
+    let resp = await github.rest.issues.listEventsForTimeline({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        issue_number: 1,
     });
 
     console.log(JSON.stringify(resp))
+
 
 
     // if (context.payload.issue.state !== CONSTENT_VALUES.GLOBALS.STATE.CLOSED &&
