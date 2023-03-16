@@ -21,7 +21,7 @@ module.exports = async ({ github, context }) => {
     if (issues.status == 200) {
         issueList = issues.data
     }
-
+    console.log("issue list",issueList)
     for (let i = 0; i < issueList.length; i++) {
 
         let number = issueList[i].number;
@@ -30,10 +30,13 @@ module.exports = async ({ github, context }) => {
             repo: context.repo.repo,
             issue_number: number,
         });
+       
+
         let events = resp.data;
+        console.log("event",events)
         for (let i = 0; i < events.length; i++) {
             let event_details = events[i];
-
+            console.log("event_details",event_details)
             if (event_details.event == 'labeled' && event_details.labels && event_details.labels.name == "p0") {
 
                 let currentDate = new Date();
