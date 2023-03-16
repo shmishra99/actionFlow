@@ -6,9 +6,9 @@ stat:awaiting response and stale label will be
 removed.
 */
 module.exports = async ({ github, context }) => {
-    console.log('entered unmark for issueid = ', context.payload.issue.number);
-    console.log('issue author is ', context.payload.issue.user.login);
-    console.log('issue latest commenter is ', context.payload.sender.login);
+    // console.log('entered unmark for issueid = ', context.payload.issue.number);
+    // console.log('issue author is ', context.payload.issue.user.login);
+    // console.log('issue latest commenter is ', context.payload.sender.login);
 
 
    let resp =  await issues.listEventsForTimeline({
