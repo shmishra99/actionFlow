@@ -13,7 +13,7 @@ module.exports = async ({ github, context }) => {
     let issues = await github.rest.issues.listForRepo({
         owner: context.repo.owner,
         repo: context.repo.repo,
-        state:"opend",
+        state:"open",
         labels:"p0"
     });
   
