@@ -1,9 +1,8 @@
 // const CONSTENT_VALUES = require('./constant')
 
 /* 
-When author of the issue/pr comment than
-stat:awaiting response and stale label will be
-removed.
+Change the issues label from p0 to p1 if
+label adding days go beyond 60 days.
 */
 module.exports = async ({ github, context }) => {
     // console.log('entered unmark for issueid = ', context.payload.issue.number);
@@ -41,7 +40,7 @@ module.exports = async ({ github, context }) => {
                 let currentDate = new Date();
                 let labeledDate = new Date(event_details.created_at)
                 console.log("time diff",currentDate - labeledDate)
-                if (currentDate - labeledDate > 0) {
+                if (currentDate - labeledDate > 2) {
                     await github.rest.issues.removeLabel({
                         issue_number: number,
                         owner: context.repo.owner,
