@@ -29,6 +29,7 @@ jobs:
       - name: Awaiting response issues
         uses: actions/stale@v7
         with:
+          operations-per-run: 1000
           #Comma separated list of labels that can be assigned to issues to exclude them from being marked as stale
           exempt-issue-labels: 'override-stale'
           #Comma separated list of labels that can be assigned to PRs to exclude them from being marked as stale
