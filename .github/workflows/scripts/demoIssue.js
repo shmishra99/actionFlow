@@ -14,12 +14,13 @@ module.exports = async ({ github, context }) => {
     // });
 
     for(let i=0;i<2;i++){
+       
         let tit = i + " issue"
         github.rest.issues.create({
         owner: context.repo.owner,
         repo: context.repo.repo,
         title: tit,
-        labels:["stat:awaiting response"]
+        labels: ["stat:awaiting response"]
       });
  
     }
