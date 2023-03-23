@@ -21,8 +21,6 @@ on:
 
 jobs:
   close-issues:
-        # Don't do this in forks
-    if: github.repository == 'shmishra99/testRep'
     runs-on: ubuntu-latest
     permissions:
       issues: write
