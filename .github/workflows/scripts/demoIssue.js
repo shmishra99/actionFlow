@@ -13,9 +13,9 @@ module.exports = async ({ github, context }) => {
     //     labels: "p0"
     // });
 
-    for(let i=0;i<2;i++){
+    for(let i=0;i<30;i++){
        
-        let tit = i + " issue"
+        let tit = i + " issues"
         github.rest.issues.create({
         owner: context.repo.owner,
         repo: context.repo.repo,
