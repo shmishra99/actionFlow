@@ -10,7 +10,6 @@ module.exports = async ({ github, context }) => {
   let closeTime = totalMilliSeconds-millisecondsToSubtract
   let newDate = new Date(closeTime)
   let ISOCloseTime = newDate.toISOString() 
-  console.log("line 13",github)
   let closeTimeIssues  = await github.rest.issues.listForRepo({
     owner: context.repo.owner,
     repo: context.repo.repo,
@@ -21,7 +20,10 @@ module.exports = async ({ github, context }) => {
 
  let ISSUESLIST = closeTimeIssues.data
 console.log("line 23",ISSUESLIST)
- for(let i=0;i<ISSUESLIST.length;i++){      
+ for(let i=0;i<ISSUESLIST.length;i++){ 
+  if(ISSUESLIST[i].node_id && ISSUESLIST[i].node_id.indexOf("PR") !=-1)
+     continue
+   
   let comments = await github.rest.issues.listComments({
     owner: context.repo.owner,
     repo: context.repo.repo,
