@@ -5,7 +5,7 @@ module.exports = async ({ github, context }) => {
 
   let date = new Date();
   let totalMilliSeconds = date.getTime();
-  let minutes = 30
+  let minutes = 20
   let millisecondsToSubtract = minutes * 60 * 1000;
   let closeTime = totalMilliSeconds-millisecondsToSubtract
   let newDate = new Date(closeTime)
@@ -32,9 +32,7 @@ module.exports = async ({ github, context }) => {
   
   let noOfComments = comments.data.length;
   let lastComment = comments.data[noOfComments-1]
-   console.log("line 32",lastComment)
   let strCom = JSON.stringify(lastComment)
-
   if(strCom.indexOf(constant.MODULE.CSAT.MSG) == -1){
        context.payload.issue = {}
        context.payload.issue.number = ISSUESLIST[i].number
