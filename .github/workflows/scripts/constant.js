@@ -26,9 +26,7 @@ let CONSTENT_VALUES = {
             SATISFACTION_PARAM: 'entry.85265664=',
             ISSUEID_PRAM: '&entry.2137816233=',
             MSG: 'Are you satisfied with the resolution of your issue?',
-        },
-        TRUSTEDPARTNERS :{}
-
+        }
     }
     
 }
