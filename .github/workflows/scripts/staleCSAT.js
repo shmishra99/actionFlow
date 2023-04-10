@@ -38,10 +38,10 @@ module.exports = async ({ github, context }) => {
   let lastComment = comments.data[noOfComments-1];
   let strCom = JSON.stringify(lastComment);
   if(strCom.indexOf(constant.MODULE.CSAT.MSG) == -1){
-       context.payload.issue = {}
-       context.payload.issue.number = ISSUESLIST[i].number
-       context.payload.issue.labels = ISSUESLIST[i].labels
-       context.payload.issue.html_url = ISSUESLIST[i].html_url
+       context.payload.issue = {};
+       context.payload.issue.number = ISSUESLIST[i].number;
+       context.payload.issue.labels = ISSUESLIST[i].labels;
+       context.payload.issue.html_url = ISSUESLIST[i].html_url;
       
        csat({github, context});
   }
