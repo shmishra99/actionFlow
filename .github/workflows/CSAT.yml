@@ -1,3 +1,4 @@
+name: 'CSAT survey'
 on:
   issues:
     types:
