@@ -29,8 +29,11 @@ module.exports = async ({ github, context }) => {
     issue_number: ISSUESLIST[i].number
   });
   
-   console.log("line 32",comments)
-  let strCom = JSON.stringify(comments)
+  
+  let noOfComments = comments.data.length;
+  let lastComment = comments.data[noOfComments-1]
+   console.log("line 32",lastComment)
+  let strCom = JSON.stringify(lastComment)
 
   if(strCom.indexOf(constant.MODULE.CSAT.MSG) == -1){
        context.payload.issue = {}
