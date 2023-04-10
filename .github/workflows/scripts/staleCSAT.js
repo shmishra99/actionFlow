@@ -19,7 +19,6 @@ module.exports = async ({ github, context }) => {
   });
 
  let ISSUESLIST = closeTimeIssues.data
-console.log("line 23",ISSUESLIST)
  for(let i=0;i<ISSUESLIST.length;i++){ 
   if(ISSUESLIST[i].node_id && ISSUESLIST[i].node_id.indexOf("PR") !=-1)
      continue
