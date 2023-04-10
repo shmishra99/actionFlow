@@ -1,6 +1,13 @@
 
 const csat = require('./CSAT.js');
 const constant = require("./constant.js");
+/*
+When stale bot closes the issue this function will 
+invoke and post CSAT link on the issue.
+This function will fetch all the issues closed within 20 minutes and
+post the survey link if survey link is not posted already.
+*/
+
 module.exports = async ({ github, context }) => {
 
   let date = new Date();
