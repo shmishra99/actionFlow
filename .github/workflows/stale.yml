@@ -39,7 +39,7 @@ jobs:
           #Prevent to remove stale label when PRs or issues are updated.
           remove-stale-when-updated: false
           days-before-issue-stale: 0
-          days-before-issue-close: 0
+          days-before-issue-close: 1
           stale-issue-label: "stale"
           # reason for closed the issue default value is not_planned
           close-issue-reason: completed
