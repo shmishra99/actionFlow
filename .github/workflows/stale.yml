@@ -84,5 +84,8 @@ jobs:
           script: |
             const script = require('./\.github/workflows/scripts/staleCSAT.js')
             script({github, context})
+      - uses: actions/github-script@v6
+        with:
+          script: |
             const script = require('./\.github/workflows/scripts/stale-close-when-update.js')
-            script({github, context})
+            script({github, context})    
