@@ -8,9 +8,37 @@ module.exports = async ({ github, context }) => {
 //     const issue = context.payload.issue.html_url;
     let base_url = '';
     console.log("line 10")
-    
-    
-    
+     
+
+    let issues = await github.rest.issues.listForRepo({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        state: "open",
+        labels: "stale"
+    });
+
+        
+    if (issues.status != 200)
+        return
+
+   let issueList = issues.data
+   
+   for (let i = 0; i < issueList.length; i++) {
+        
+       
+    let number = issueList[i].number;
+    let resp = await github.rest.issues.listEventsForTimeline({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        issue_number: number,
+    });
+   
+    let events = resp.data;
+    console.log("event list", events)
+
+
+   }
+
 
     //Loop over all ths label present in issue and check if specific label is present for survey link.
     //  for (const label of context.payload.issue.labels) {

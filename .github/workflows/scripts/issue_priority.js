@@ -16,6 +16,9 @@ module.exports = async ({ github, context }) => {
         state: "open",
         labels: "p0"
     });
+  
+
+
 
     
     if (issues.status != 200)
@@ -26,11 +29,13 @@ module.exports = async ({ github, context }) => {
     for (let i = 0; i < issueList.length; i++) {
 
         let number = issueList[i].number;
+  
         let resp = await github.rest.issues.listEventsForTimeline({
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: number,
         });
+
         let events = resp.data;
         console.log("event")
         for (let i = 0; i < events.length; i++) {
