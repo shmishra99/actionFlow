@@ -50,7 +50,7 @@ module.exports = async ({ github, context }) => {
 
         }
         if(closeIssue){
-            octokit.rest.issues.update({
+            await github.rest.issues.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: number,
