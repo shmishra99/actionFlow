@@ -5,16 +5,7 @@ If yes, it will change the label to p1.
 */
 module.exports = async ({ github, context }) => {
    
-    //fetch all the open issues with label p0
-    // let issues = await github.rest.issues.listForRepo({
-    //     owner: context.repo.owner,
-    //     repo: context.repo.repo,
-    //     state: "open",
-    //     labels: "p0"
-    // });
-
-    for(let i=0;i<30;i++){
-       
+    for(let i=0;i<30;i++){  
         let tit = i + " issues"
         github.rest.issues.create({
         owner: context.repo.owner,
@@ -24,9 +15,4 @@ module.exports = async ({ github, context }) => {
       });
  
     }
-
-    
-    
-    
-
 }

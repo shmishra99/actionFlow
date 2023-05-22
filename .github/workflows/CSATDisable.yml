@@ -1,8 +1,9 @@
-name: 'demo issue'
+name: 'CSAT survey Disable'
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '* * * */6 *'
+  issues:
+    types:
+      - closed
+
 permissions:
   contents: read
   issues: write
@@ -16,5 +17,5 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const script = require('./\.github/workflows/scripts/demoIssue.js')
+            const script = require('./\.github/workflows/scripts/CSATDisable.js')
             script({github, context})
