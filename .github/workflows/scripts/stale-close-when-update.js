@@ -5,7 +5,7 @@ Invoked from staleCSAT.js and CSAT.yaml file to
 post survey link in closed issue.
 */
 module.exports = async ({ github, context }) => {
-    const issue = context.payload.issue.html_url;
+//     const issue = context.payload.issue.html_url;
     let base_url = '';
     console.log("line 10")
     
