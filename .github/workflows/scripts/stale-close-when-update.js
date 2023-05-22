@@ -27,6 +27,7 @@ module.exports = async ({ github, context }) => {
         
        
     let number = issueList[i].number;
+
     let resp = await github.rest.issues.listEventsForTimeline({
         owner: context.repo.owner,
         repo: context.repo.repo,
@@ -34,8 +35,9 @@ module.exports = async ({ github, context }) => {
     });
    
     let events = resp.data;
-    console.log("event list", events)
+    console.log("---------Issue number---- list", number)
 
+    console.log("event list", events)
 
    }
 
