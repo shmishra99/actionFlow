@@ -38,7 +38,7 @@ module.exports = async ({ github, context }) => {
             let event_details = events[i];
             let currentDate = new Date();
             let labeledDate = new Date(event_details.created_at)
-            let timeInDays = (currentDate - labeledDate) / 86400 * 1000
+            let timeInDays = (currentDate - labeledDate) / 86400000
             console.log("time diff",labeledDate,currentDate, timeInDays,currentDate - labeledDate)
             if (event_details.event == 'labeled' && event_details.label && event_details.label.name == "stale") {
                 if (currentDate - labeledDate > 0)
