@@ -1,6 +1,3 @@
-
-const CONSTENT_VALUES = require('./constant');
-
 /*
    Script will close all issues that have been labeled as stale for more than 7 days
    and have had at comment since being labeled, invoked from stale management.
@@ -22,6 +19,8 @@ module.exports = async ({ github, context }) => {
     for (let i = 0; i < issueList.length; i++) {
         let number = issueList[i].number;
         let nodeType = issueList[i].node_id
+        let issueLabels = issueList[i].labels
+        let stringLabel = JSON.stringify(issueLabels)
         console.log("issue list",issueList[i])
        
         //fetch all the events inside the issue.
@@ -42,6 +41,9 @@ module.exports = async ({ github, context }) => {
                 let timeInDays = (currentDate - labeledDate) / 86400000
                 console.log(`Issue ${number} stale label is ${timeInDays} days old.`)
                 let closeAfterStale = 7
+                
+                if(stringLabel.indexOf('stat:contribution welcome') !=-1 || stringLabel.indexOf('stat:good first issue') !=-1 )
+                      closeAfterStale = 365
 
                 if(nodeType.startsWith('PR'))
                    closeAfterStale = 14
@@ -53,6 +55,7 @@ module.exports = async ({ github, context }) => {
                 console.log(`Stale is unlabel for issue ${number}.`)
                     closeIssue = false
             }
+            console.log("line 58",closeIssue)
         }
         if(closeIssue){
             console.log(`Closing the issue ${number} more then 7 days old with stale label.`)
@@ -62,6 +65,7 @@ module.exports = async ({ github, context }) => {
                 issue_number: number,
                 state:"closed"
               });
+              
               await github.rest.issues.createComment({
                 issue_number: number,
                 owner: context.repo.owner,
