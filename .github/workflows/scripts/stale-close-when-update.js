@@ -5,10 +5,7 @@ Invoked from staleCSAT.js and CSAT.yaml file to
 post survey link in closed issue.
 */
 module.exports = async ({ github, context }) => {
-    //     const issue = context.payload.issue.html_url;
     let base_url = '';
-    console.log("line 10")
-
 
     let issues = await github.rest.issues.listForRepo({
         owner: context.repo.owner,
@@ -16,13 +13,10 @@ module.exports = async ({ github, context }) => {
         state: "open",
         labels: "stale"
     });
-
-
     if (issues.status != 200)
         return
 
     let issueList = issues.data
-
     for (let i = 0; i < issueList.length; i++) {
         let number = issueList[i].number;
         let resp = await github.rest.issues.listEventsForTimeline({
@@ -30,12 +24,12 @@ module.exports = async ({ github, context }) => {
             repo: context.repo.repo,
             issue_number: number,
         });
+
         let events = resp.data;
         let closeIssue = false
         for (let i = 0; i < events.length; i++) {
-            let event_details = events[i];
-            if (event_details.event == 'labeled' && event_details.label && event_details.label.name == "stale") {
-            
+            let event_details = events[i];      
+            if (event_details.event == 'labeled' && event_details.label && event_details.label.name == "stale") {  
                 let currentDate = new Date();
                 let labeledDate = new Date(event_details.created_at)
                 let timeInDays = (currentDate - labeledDate) / 86400000
@@ -43,7 +37,6 @@ module.exports = async ({ github, context }) => {
                 let closeAfterStale = 0
                 if (timeInDays > closeAfterStale)
                     closeIssue = true
-
             }
             if (event_details.event == 'unlabeled' && event_details.label && event_details.label.name == "stale")
                     closeIssue = false
