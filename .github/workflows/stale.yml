@@ -41,7 +41,6 @@ jobs:
           days-before-issue-stale: 0
           days-before-issue-close: 0
           stale-issue-label: "stale"
-          ignore-updates: true
           # reason for closed the issue default value is not_planned
           close-issue-reason: completed
           only-labels: "stat:awaiting response"
@@ -85,8 +84,8 @@ jobs:
           script: |
             const script = require('./\.github/workflows/scripts/staleCSAT.js')
             script({github, context})
-    #  - uses: actions/github-script@v6
-    #    with:
-   #       script: |
-   #         const script = require('./\.github/workflows/scripts/stale-close-when-update.js')
-   #         script({github, context})    
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const script = require('./\.github/workflows/scripts/stale-close-when-update.js')
+            script({github, context})    
