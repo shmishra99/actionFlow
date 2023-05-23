@@ -31,17 +31,15 @@ module.exports = async ({ github, context }) => {
             issue_number: number,
         });
         let events = resp.data;
-        console.log("---------Issue number------- list", number)
-        console.log("event list", events)
         let closeIssue = false
         for (let i = 0; i < events.length; i++) {
             let event_details = events[i];
             let currentDate = new Date();
             let labeledDate = new Date(event_details.created_at)
             let timeInDays = (currentDate - labeledDate) / 86400000
-            console.log("time diff",labeledDate,currentDate, timeInDays,currentDate - labeledDate)
+            console.log(`Issue ${number} is ${timeInDays} days old.`)
             if (event_details.event == 'labeled' && event_details.label && event_details.label.name == "stale") {
-                if (currentDate - labeledDate > 0)
+                if (timeInDays > 0)
                     closeIssue = true
             }
             if (event_details.event == 'unlabeled' && event_details.label && event_details.label.name == "stale")
