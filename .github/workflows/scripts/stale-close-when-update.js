@@ -5,8 +5,6 @@ Invoked from staleCSAT.js and CSAT.yaml file to
 post survey link in closed issue.
 */
 module.exports = async ({ github, context }) => {
-    let base_url = '';
-
     let issues = await github.rest.issues.listForRepo({
         owner: context.repo.owner,
         repo: context.repo.repo,
@@ -19,6 +17,7 @@ module.exports = async ({ github, context }) => {
     let issueList = issues.data
     for (let i = 0; i < issueList.length; i++) {
         let number = issueList[i].number;
+        console.log("issue list",issueList[i])
         let resp = await github.rest.issues.listEventsForTimeline({
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -34,7 +33,9 @@ module.exports = async ({ github, context }) => {
                 let labeledDate = new Date(event_details.created_at)
                 let timeInDays = (currentDate - labeledDate) / 86400000
                 console.log(`Issue ${number} stale label is ${timeInDays} days old.`)
+                
                 let closeAfterStale = 7
+              
                 if (timeInDays > closeAfterStale)
                     closeIssue = true
             }
