@@ -49,6 +49,7 @@ module.exports = async ({ github, context }) => {
 
         }
         if(closeIssue){
+            console.log(`Closing the issue ${number} more then 7 days old with stale label`)
             await github.rest.issues.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
