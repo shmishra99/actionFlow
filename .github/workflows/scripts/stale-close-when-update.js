@@ -33,14 +33,15 @@ module.exports = async ({ github, context }) => {
         let events = resp.data;
         let closeIssue = false
         for (let i = 0; i < events.length; i++) {
-
+            let event_details = events[i];
             if (event_details.event == 'labeled' && event_details.label && event_details.label.name == "stale") {
-                let event_details = events[i];
+            
                 let currentDate = new Date();
                 let labeledDate = new Date(event_details.created_at)
                 let timeInDays = (currentDate - labeledDate) / 86400000
                 console.log(`Issue ${number} stale label is ${timeInDays} days old.`)
-                if (timeInDays > 0)
+                let closeAfterStale = 7
+                if (timeInDays > closeAfterStale)
                     closeIssue = true
 
             }
