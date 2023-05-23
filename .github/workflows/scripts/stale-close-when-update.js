@@ -40,7 +40,7 @@ module.exports = async ({ github, context }) => {
                 let labeledDate = new Date(event_details.created_at)
                 let timeInDays = (currentDate - labeledDate) / 86400000
                 console.log(`Issue ${number} stale label is ${timeInDays} days old.`)
-                let closeAfterStale = 7
+                let closeAfterStale = 0
                 if (timeInDays > closeAfterStale)
                     closeIssue = true
 
