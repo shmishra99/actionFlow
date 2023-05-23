@@ -50,12 +50,13 @@ module.exports = async ({ github, context }) => {
    
                 if (timeInDays > closeAfterStale)
                     closeIssue = true
+                    console.log("line 58",closeAfterStale)
             }
             if (event_details.event == 'unlabeled' && event_details.label && event_details.label.name == "stale"){
                 console.log(`Stale is unlabel for issue ${number}.`)
                     closeIssue = false
             }
-            console.log("line 58",closeAfterStale)
+           
         }
         if(closeIssue){
             console.log(`Closing the issue ${number} more then 7 days old with stale label.`)
