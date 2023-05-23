@@ -52,20 +52,20 @@ module.exports = async ({ github, context }) => {
 
         }
         if(closeIssue){
-           
-            await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: number,
-                state:"closed"
-              });
+            console.log("Issue has closed.")
+            // await github.rest.issues.update({
+            //     owner: context.repo.owner,
+            //     repo: context.repo.repo,
+            //     issue_number: number,
+            //     state:"closed"
+            //   });
             
-              await github.rest.issues.createComment({
-                issue_number: number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: "This issue was closed because it has been inactive for 7 days since being marked as stale. Please reopen if you'd like to work on this further."
-            });
+            //   await github.rest.issues.createComment({
+            //     issue_number: number,
+            //     owner: context.repo.owner,
+            //     repo: context.repo.repo,
+            //     body: "This issue was closed because it has been inactive for 7 days since being marked as stale. Please reopen if you'd like to work on this further."
+            // });
 
 
         }
