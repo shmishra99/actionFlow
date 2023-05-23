@@ -36,16 +36,11 @@ module.exports = async ({ github, context }) => {
         let closeIssue = false
         for (let i = 0; i < events.length; i++) {
             let event_details = events[i];
-//             console.log("event_details", event_details)
-            //  let timeInDays = (currentDate - labeledDate) / 86400
             let currentDate = new Date();
             let labeledDate = new Date(event_details.created_at)
-          
             let timeInDays = (currentDate - labeledDate) / 86400
-            console.log("time diff", timeInDays)
+            console.log("time diff",labeledDate,currentDate, timeInDays)
             if (event_details.event == 'labeled' && event_details.label && event_details.label.name == "stale") {
-
-               
                 if (currentDate - labeledDate > 0)
                     closeIssue = true
             }
