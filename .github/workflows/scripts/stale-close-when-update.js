@@ -55,7 +55,7 @@ module.exports = async ({ github, context }) => {
                 console.log(`Stale is unlabel for issue ${number}.`)
                     closeIssue = false
             }
-            console.log("line 58",closeIssue)
+            console.log("line 58",closeAfterStale)
         }
         if(closeIssue){
             console.log(`Closing the issue ${number} more then 7 days old with stale label.`)
