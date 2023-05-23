@@ -34,13 +34,14 @@ module.exports = async ({ github, context }) => {
                 let labeledDate = new Date(event_details.created_at)
                 let timeInDays = (currentDate - labeledDate) / 86400000
                 console.log(`Issue ${number} stale label is ${timeInDays} days old.`)
-                let closeAfterStale = 0
+                let closeAfterStale = 7
                 if (timeInDays > closeAfterStale)
                     closeIssue = true
             }
-            if (event_details.event == 'unlabeled' && event_details.label && event_details.label.name == "stale")
+            if (event_details.event == 'unlabeled' && event_details.label && event_details.label.name == "stale"){
+                console.log(`Stale is unlabel for issue ${number}`)
                     closeIssue = false
-
+            }
         }
         if(closeIssue){
             console.log(`Closing the issue ${number} more then 7 days old with stale label`)
