@@ -27,7 +27,7 @@ module.exports = async ({ github, context }) => {
            closeAfterStale = 14
         else if(stringLabel.indexOf('stat:contribution welcome') !=-1 || stringLabel.indexOf('stat:good first issue') !=-1 )
            closeAfterStale = 365
-           closeAfterStale = 0
+       
         //fetch all the events inside the issue.
         let resp = await github.rest.issues.listEventsForTimeline({
             owner: context.repo.owner,
