@@ -17,6 +17,7 @@ module.exports = async ({ github, context }) => {
     let issueList = issues.data
     for (let i = 0; i < issueList.length; i++) {
         let number = issueList[i].number;
+        let nodeType = issueList[i].node_id
         console.log("issue list",issueList[i])
         let resp = await github.rest.issues.listEventsForTimeline({
             owner: context.repo.owner,
@@ -33,11 +34,15 @@ module.exports = async ({ github, context }) => {
                 let labeledDate = new Date(event_details.created_at)
                 let timeInDays = (currentDate - labeledDate) / 86400000
                 console.log(`Issue ${number} stale label is ${timeInDays} days old.`)
-                
                 let closeAfterStale = 7
-              
+               
+                if(nodeType.startsWith('PR'))
+                   closeAfterStale = 14
+
                 if (timeInDays > closeAfterStale)
                     closeIssue = true
+                
+                console.log("line 45 " + nodeType + "  " + closeAfterStale)
             }
             if (event_details.event == 'unlabeled' && event_details.label && event_details.label.name == "stale"){
                 console.log(`Stale is unlabel for issue ${number}`)
