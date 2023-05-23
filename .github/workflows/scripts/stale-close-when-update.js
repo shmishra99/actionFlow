@@ -42,15 +42,14 @@ module.exports = async ({ github, context }) => {
                 console.log(`Issue ${number} stale label is ${timeInDays} days old.`)
                 let closeAfterStale = 7
                 
-                if(stringLabel.indexOf('stat:contribution welcome') !=-1 || stringLabel.indexOf('stat:good first issue') !=-1 )
-                      closeAfterStale = 365
 
                 if(nodeType.startsWith('PR'))
                    closeAfterStale = 14
-   
+                else if(stringLabel.indexOf('stat:contribution welcome') !=-1 || stringLabel.indexOf('stat:good first issue') !=-1 )
+                   closeAfterStale = 365
+
                 if (timeInDays > closeAfterStale)
                     closeIssue = true
-                    console.log("line 58",closeAfterStale)
             }
             if (event_details.event == 'unlabeled' && event_details.label && event_details.label.name == "stale"){
                 console.log(`Stale is unlabel for issue ${number}.`)
