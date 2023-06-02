@@ -51,7 +51,7 @@ module.exports = async ({ github, context }) => {
             FiltersP1issues.push(issueP1);
         }
     }
-   // for P1 issues 
+    // for P1 issues 
     for (const issue of FiltersP0issues) {
         let number = issue.number
 
@@ -66,73 +66,67 @@ module.exports = async ({ github, context }) => {
         let lastLabelEvent;
         // filter out last p0 label add event;
         for (const IssueEvent of events) {
-            if (IssueEvent.event == 'labeled' && IssueEvent.label && IssueEvent.label.name == "p0") {
+            if (IssueEvent.event == 'labeled' && IssueEvent.label && IssueEvent.label.name == "p0") 
                 {
                     lastLabelEvent = IssueEvent
                 }
-
+            else if (IssueEvent.event == 'labeled' && IssueEvent.label && IssueEvent.label.name == "p0") 
+            {
+                lastLabelEvent = undefined
             }
-        }
 
+        }
+        if(lastLabelEvent){
         // check label add time 
         let currentDate = new Date();
         let labeledDate = new Date(lastLabelEvent.created_at)
-        console.log("time diff", number,currentDate - labeledDate)
+        console.log("time diff", number, currentDate - labeledDate)
         const timeDiff = currentDate - labeledDate
         // if time diference is more then 14 days and dont have comment then put comment 
-         
+
         let allEventsStr = JSON.stringify(events)
 
-        if(timeDiff > forteenDays && allEventsStr.indexOf(eventCommentP1) == -1)   // change 14 days
+        if (timeDiff > forteenDays && allEventsStr.indexOf(eventCommentP1) == -1)   // change 14 days
         {
-             // comment on the issue 
+            // comment on the issue 
 
-             await github.rest.issues.createComment({
+            await github.rest.issues.createComment({
                 issue_number: number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 body: eventCommentP1
             });
-             
-        }    
-        else if(timeDiff > twentyEightDays && allEventsStr.indexOf(eventCommentP1) !=-1){
-         
-            await github.rest.issues.removeLabel({
-                issue_number: number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: "p0"
-
-            })
-            await github.rest.issues.addLabels({
-                issue_number: number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: ["p1"]
-
-            })  
 
         }
-           
-        
-        
-        
-        
-      
+        else if (timeDiff > twentyEightDays && allEventsStr.indexOf(eventCommentP1) != -1) {
+
+            // await github.rest.issues.removeLabel({
+            //     issue_number: number,
+            //     owner: context.repo.owner,
+            //     repo: context.repo.repo,
+            //     name: "p0"
+
+            // })
+            // await github.rest.issues.addLabels({
+            //     issue_number: number,
+            //     owner: context.repo.owner,
+            //     repo: context.repo.repo,
+            //     labels: ["p1"]
+
+            // })  
+
+            await github.rest.issues.createComment({
+                issue_number: number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: "issue remove label from p0 to p1"
+            });
+
+        }
         //if time diffecnce is more then 28 days and has comment then change the priority form p0 to p1
-
-
-
-
-
-
-       // ------------------------------------------------------------------------------------------------------------------
-
-        if (currentDate - labeledDate > 2) {
   
-        }
-
     }
+}
 
     // for P2 issues 
 
@@ -151,57 +145,68 @@ module.exports = async ({ github, context }) => {
         // filter out last p0 label add event;
         for (const IssueEvent of events) {
             if (IssueEvent.event == 'labeled' && IssueEvent.label && IssueEvent.label.name == "p1") {
-                {
-                    lastLabelEvent = IssueEvent
-                }
-
+                lastLabelEvent = IssueEvent
+            }
+            else if (IssueEvent.event == 'unlabeled' && IssueEvent.label && IssueEvent.label.name == "p1") {
+                    lastLabelEvent = undefined
             }
         }
 
+        if(lastLabelEvent){
         // check label add time 
         let currentDate = new Date();
         let labeledDate = new Date(lastLabelEvent.created_at)
-        console.log("time diff", number,currentDate - labeledDate)
+        console.log("time diff", number, currentDate - labeledDate)
         const timeDiff = currentDate - labeledDate
         // if time diference is more then 14 days and dont have comment then put comment 
-         
+
         let allEventsStr = JSON.stringify(events)
 
-        if(timeDiff > forteenDays && allEventsStr.indexOf(eventCommentP2) == -1)   // change 14 days
+      
+        if (timeDiff > forteenDays && allEventsStr.indexOf(eventCommentP2) == -1)   // change 14 days
         {
-             // comment on the issue 
-             await github.rest.issues.createComment({
+            // comment on the issue 
+            await github.rest.issues.createComment({
                 issue_number: number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 body: eventCommentP2
             });
-             
-        }    
-        else if(timeDiff > twentyEightDays && allEventsStr.indexOf(eventCommentP2) !=-1){
-         
-            await github.rest.issues.removeLabel({
-                issue_number: number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: "p1"
-
-            })
-            await github.rest.issues.addLabels({
-                issue_number: number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: ["p2"]
-
-            })  
 
         }
-           
-        
-        
-        
-        
-      
+        else if (timeDiff > twentyEightDays && allEventsStr.indexOf(eventCommentP2) != -1) {
+
+            // await github.rest.issues.removeLabel({
+            //     issue_number: number,
+            //     owner: context.repo.owner,
+            //     repo: context.repo.repo,
+            //     name: "p1"
+
+            // })
+            // await github.rest.issues.addLabels({
+            //     issue_number: number,
+            //     owner: context.repo.owner,
+            //     repo: context.repo.repo,
+            //     labels: ["p2"]
+
+            // })  
+
+            await github.rest.issues.createComment({
+                issue_number: number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: "issue change label from p1 to p2"
+            });
+
+
+        }
+    } 
+
+
+
+
+
+
         //if time diffecnce is more then 28 days and has comment then change the priority form p0 to p1
 
 
@@ -209,59 +214,10 @@ module.exports = async ({ github, context }) => {
 
 
 
-       // ------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------
 
-        if (currentDate - labeledDate > 2) {
-  
-        }
+    
 
     }
 
-
-
-
-
-
-    // let issueList = issues.data
-    // console.log("issue list")
-    // for (let i = 0; i < issueList.length; i++) {
-
-    //     let number = issueList[i].number;
-
-    //     let resp = await github.rest.issues.listEventsForTimeline({
-    //         owner: context.repo.owner,
-    //         repo: context.repo.repo,
-    //         issue_number: number,
-    //     });
-
-    //     let events = resp.data;
-    //     console.log("event")
-    //     for (let i = 0; i < events.length; i++) {
-    //         let event_details = events[i];
-    //         console.log("event_details", event_details)
-
-    //         if (event_details.event == 'labeled' && event_details.label && event_details.label.name == "p0") {
-    //             let currentDate = new Date();
-    //             let labeledDate = new Date(event_details.created_at)
-    //             console.log("time diff", currentDate - labeledDate)
-    //             if (currentDate - labeledDate > 2) {
-    //                 await github.rest.issues.removeLabel({
-    //                     issue_number: number,
-    //                     owner: context.repo.owner,
-    //                     repo: context.repo.repo,
-    //                     name: "p0"
-
-    //                 })
-    //                 await github.rest.issues.addLabels({
-    //                     issue_number: number,
-    //                     owner: context.repo.owner,
-    //                     repo: context.repo.repo,
-    //                     labels: ["p1"]
-
-    //                 })
-    //             }
-
-    //         }
-    //     }
-    // }
 }
