@@ -50,7 +50,7 @@ module.exports = async ({ github, context }) => {
     }
 
     for (const issueP1 of issuesP1Ar) {
-        console.log("line 53",issueP0)
+        console.log("line 53",issueP1)
         if (!issueP1.labels.includes(excludeLabel)) {
             FiltersP1issues.push(issueP1);
         }
