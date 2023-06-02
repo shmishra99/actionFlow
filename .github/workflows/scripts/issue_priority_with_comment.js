@@ -44,14 +44,24 @@ module.exports = async ({ github, context }) => {
     //for p0 label issues
     for (const issueP0 of issuesP0Ar) {
         console.log("line 46",issueP0)
-        if (!issueP0.labels.includes(excludeLabel)) {
+        let labelsObj = issueP0.labels
+        let labels = labelsObj.map((label)=>{
+              return label.name
+        })
+        console.log("present label",issueP1.number,labels)
+        if (!labels.includes(excludeLabel)) {
             FiltersP0issues.push(issueP0);
         }
     }
 
     for (const issueP1 of issuesP1Ar) {
         console.log("line 53",issueP1)
-        if (!issueP1.labels.includes(excludeLabel)) {
+        let labelsObj = issueP0.labels
+        let labels = labelsObj.map((label)=>{
+              return label.name
+        })
+        console.log("present label",issueP1.number,labels)
+        if (!labels.includes(excludeLabel)) {
             FiltersP1issues.push(issueP1);
         }
     }
