@@ -37,9 +37,11 @@ module.exports = async ({ github, context }) => {
     let FiltersP0issues = []
     let FiltersP1issues = []
     let excludeLabel = "override-deprioritization"
-    const eventCommentP1 = `Issue will be deprioritized to P1 after 14 days. Please let us know if this is not required by adding the label 'override-deprioritization not required' to this issue.`
-    const eventCommentP2 = `Issue will be deprioritized to P2 after 14 days. Please let us know if this is not required by adding the label 'override-deprioritization not required' to this issue.`
+    const eventCommentP1 = `Issue will be deprioritized to P1 after 14 days. Please let us know if this is not required by adding the label 'override-deprioritization' to this issue.`
+    const eventCommentP2 = `Issue will be deprioritized to P2 after 14 days. Please let us know if this is not required by adding the label 'override-deprioritization' to this issue.`
     const milliSecondOneDay = 86400000
+    
+    //for p0 label issues
     for (const issueP0 of issuesP0Ar) {
         if (!issueP0.labels.includes(excludeLabel)) {
             FiltersP0issues.push(issueP0);
@@ -51,7 +53,9 @@ module.exports = async ({ github, context }) => {
             FiltersP1issues.push(issueP1);
         }
     }
-    // for P1 issues 
+  
+  
+    // for P1 label issues 
     for (const issue of FiltersP0issues) {
         let number = issue.number
 
@@ -82,10 +86,10 @@ module.exports = async ({ github, context }) => {
         let labeledDate = new Date(lastLabelEvent.created_at)
         console.log("time diff", number, (currentDate - labeledDate)/milliSecondOneDay)
         const timeDiff = (currentDate - labeledDate)/milliSecondOneDay
+
         // if time diference is more then 14 days and dont have comment then put comment 
-
         let allEventsStr = JSON.stringify(events)
-
+      
         if (timeDiff > forteenDays && allEventsStr.indexOf(eventCommentP1) == -1)   // change 14 days
         {
             // comment on the issue 
