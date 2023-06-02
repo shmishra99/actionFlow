@@ -39,7 +39,7 @@ module.exports = async ({ github, context }) => {
     let excludeLabel = "override-deprioritization"
     const eventCommentP1 = `Issue will be deprioritized to P1 after 14 days. Please let us know if this is not required by adding the label 'override-deprioritization not required' to this issue.`
     const eventCommentP2 = `Issue will be deprioritized to P2 after 14 days. Please let us know if this is not required by adding the label 'override-deprioritization not required' to this issue.`
-
+    const milliSecondOneDay = 86400000
     for (const issueP0 of issuesP0Ar) {
         if (!issueP0.labels.includes(excludeLabel)) {
             FiltersP0issues.push(issueP0);
@@ -80,8 +80,8 @@ module.exports = async ({ github, context }) => {
         // check label add time 
         let currentDate = new Date();
         let labeledDate = new Date(lastLabelEvent.created_at)
-        console.log("time diff", number, currentDate - labeledDate)
-        const timeDiff = currentDate - labeledDate
+        console.log("time diff", number, (currentDate - labeledDate)/milliSecondOneDay)
+        const timeDiff = (currentDate - labeledDate)/milliSecondOneDay
         // if time diference is more then 14 days and dont have comment then put comment 
 
         let allEventsStr = JSON.stringify(events)
@@ -156,8 +156,9 @@ module.exports = async ({ github, context }) => {
         // check label add time 
         let currentDate = new Date();
         let labeledDate = new Date(lastLabelEvent.created_at)
-        console.log("time diff", number, currentDate - labeledDate)
-        const timeDiff = currentDate - labeledDate
+        
+        console.log("time diff", number, (currentDate - labeledDate)/milliSecondOneDay)
+        const timeDiff = (currentDate - labeledDate)/milliSecondOneDay
         // if time diference is more then 14 days and dont have comment then put comment 
 
         let allEventsStr = JSON.stringify(events)
