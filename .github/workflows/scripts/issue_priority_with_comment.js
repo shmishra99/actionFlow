@@ -43,6 +43,7 @@ module.exports = async ({ github, context }) => {
     
     //for p0 label issues
     for (const issueP0 of issuesP0Ar) {
+        console.log("line 46",issueP0)
         if (!issueP0.labels.includes(excludeLabel)) {
             FiltersP0issues.push(issueP0);
         }
