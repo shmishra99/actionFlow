@@ -52,7 +52,7 @@ module.exports = async ({ github, context }) => {
         }
     }
    // for P1 issues 
-    for (const issue of FiltersP1issues) {
+    for (const issue of FiltersP0issues) {
         let number = issue.number
 
         // issue event check the label add date 
@@ -136,7 +136,7 @@ module.exports = async ({ github, context }) => {
 
     // for P2 issues 
 
-    for (const issue of FiltersP2issues) {
+    for (const issue of FiltersP1issues) {
         let number = issue.number
 
         // issue event check the label add date 
@@ -222,46 +222,46 @@ module.exports = async ({ github, context }) => {
 
 
 
-    let issueList = issues.data
-    console.log("issue list")
-    for (let i = 0; i < issueList.length; i++) {
+    // let issueList = issues.data
+    // console.log("issue list")
+    // for (let i = 0; i < issueList.length; i++) {
 
-        let number = issueList[i].number;
+    //     let number = issueList[i].number;
 
-        let resp = await github.rest.issues.listEventsForTimeline({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: number,
-        });
+    //     let resp = await github.rest.issues.listEventsForTimeline({
+    //         owner: context.repo.owner,
+    //         repo: context.repo.repo,
+    //         issue_number: number,
+    //     });
 
-        let events = resp.data;
-        console.log("event")
-        for (let i = 0; i < events.length; i++) {
-            let event_details = events[i];
-            console.log("event_details", event_details)
+    //     let events = resp.data;
+    //     console.log("event")
+    //     for (let i = 0; i < events.length; i++) {
+    //         let event_details = events[i];
+    //         console.log("event_details", event_details)
 
-            if (event_details.event == 'labeled' && event_details.label && event_details.label.name == "p0") {
-                let currentDate = new Date();
-                let labeledDate = new Date(event_details.created_at)
-                console.log("time diff", currentDate - labeledDate)
-                if (currentDate - labeledDate > 2) {
-                    await github.rest.issues.removeLabel({
-                        issue_number: number,
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        name: "p0"
+    //         if (event_details.event == 'labeled' && event_details.label && event_details.label.name == "p0") {
+    //             let currentDate = new Date();
+    //             let labeledDate = new Date(event_details.created_at)
+    //             console.log("time diff", currentDate - labeledDate)
+    //             if (currentDate - labeledDate > 2) {
+    //                 await github.rest.issues.removeLabel({
+    //                     issue_number: number,
+    //                     owner: context.repo.owner,
+    //                     repo: context.repo.repo,
+    //                     name: "p0"
 
-                    })
-                    await github.rest.issues.addLabels({
-                        issue_number: number,
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        labels: ["p1"]
+    //                 })
+    //                 await github.rest.issues.addLabels({
+    //                     issue_number: number,
+    //                     owner: context.repo.owner,
+    //                     repo: context.repo.repo,
+    //                     labels: ["p1"]
 
-                    })
-                }
+    //                 })
+    //             }
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
 }
