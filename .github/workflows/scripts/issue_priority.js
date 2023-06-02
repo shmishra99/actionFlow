@@ -16,11 +16,7 @@ module.exports = async ({ github, context }) => {
         state: "open",
         labels: "p0"
     });
-  
 
-
-
-    
     if (issues.status != 200)
         return
 
@@ -41,6 +37,7 @@ module.exports = async ({ github, context }) => {
         for (let i = 0; i < events.length; i++) {
             let event_details = events[i];
             console.log("event_details",event_details)
+        
             if (event_details.event == 'labeled' && event_details.label && event_details.label.name == "p0") {
                 let currentDate = new Date();
                 let labeledDate = new Date(event_details.created_at)
@@ -53,7 +50,6 @@ module.exports = async ({ github, context }) => {
                         name: "p0"
 
                     })
-
                     await github.rest.issues.addLabels({
                         issue_number: number,
                         owner: context.repo.owner,
