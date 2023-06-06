@@ -20,7 +20,10 @@ name: Label PR
 on:
   workflow_dispatch:
   pull_request:
-    types: [opened,reopened,closed]
+    types: 
+      -opened 
+      -reopened 
+      -closed
 
 jobs:
   label:
