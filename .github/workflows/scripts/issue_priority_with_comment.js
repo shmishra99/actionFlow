@@ -24,7 +24,7 @@ module.exports = async ({ github, context }) => {
     let issuesP0Ar = issuesP0.data
     let issuesP1Ar = issuesP1.data
     const forteenDays = 1;
-    const twentyEightDays = 28
+    const twentyEightDays = 1
 
     //filter out issues with exclude label "override-deprioritization".
     let FiltersP0issues = []
