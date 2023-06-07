@@ -23,7 +23,7 @@ module.exports = async ({ github, context }) => {
 
     let issuesP0Ar = issuesP0.data
     let issuesP1Ar = issuesP1.data
-    const forteenDays = 14;
+    const forteenDays = 1;
     const twentyEightDays = 28
 
     //filter out issues with exclude label "override-deprioritization".
@@ -73,7 +73,7 @@ module.exports = async ({ github, context }) => {
             if (IssueEvent.event == 'labeled' && IssueEvent.label && IssueEvent.label.name == "p0") {
                 lastLabelEvent = IssueEvent
             }
-            else if (IssueEvent.event == 'labeled' && IssueEvent.label && IssueEvent.label.name == "p0") {
+            else if (IssueEvent.event == 'unlabeled' && IssueEvent.label && IssueEvent.label.name == "p0") {
                 lastLabelEvent = undefined
             }
 
