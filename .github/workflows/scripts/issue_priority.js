@@ -17,7 +17,7 @@ module.exports = async ({ github, context }) => {
         labels: "p0"
     });
 
-    
+    console.log("test change")
     if (issues.status != 200)
         return
 
