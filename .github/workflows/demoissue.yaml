@@ -1,8 +1,6 @@
 name: 'demo issue'
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '* * * */6 *'
 permissions:
   contents: read
   issues: write
