@@ -2,7 +2,16 @@ module.exports = async ({ github, context }) =>  {
     console.log("line 3", context.payload)
     // Check if it is a then return issue number else return PR number
     const issueNumber = context.payload.issue ? context.payload.issue.number : context.payload.number    
-    const assigneesList = ['shmishra99','sushreebarsa'];
+    let issueNumber;
+    let assigneesList; 
+    if(context.payload.issue){
+        assigneesList = ['shmishra99','sushreebarsa']
+        issueNumber =  context.payload.issue.number
+    }
+    else {
+         assigneesList = ['ckulkarni97']
+         issueNumber = context.payload.number 
+    }
     console.log("assignee list",assigneesList)
     console.log("entered auto assignment for this issue:  ", issueNumber);
     if (!assigneesList.length) {
