@@ -1,5 +1,7 @@
 module.exports = async ({ github, context }) => {
   console.log("event.......", github)
+
+   console.log("context.......", context)
   
   
   // const size = context.payload.pull_request.additions +
