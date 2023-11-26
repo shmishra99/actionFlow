@@ -1,6 +1,7 @@
 module.exports = async ({ github, context }) => {
-  console.log("context.......", context.payload.action);
+  console.log('Processing pull request number: ', context.issue.number)
   if (context.payload.action == "opened") {
+    console.log("Trigger Event: ", context.payload.action);
     const size =
       context.payload.pull_request.additions +
       context.payload.pull_request.deletions;
@@ -16,6 +17,7 @@ module.exports = async ({ github, context }) => {
     } else {
       labelsToAdd = "size:XL";
     }
+    console.log('Applying size label : ', labelsToAdd)
     return github.rest.issues.addLabels({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -25,10 +27,9 @@ module.exports = async ({ github, context }) => {
   } 
   else if (context.payload.action == "synchronize") {
     console.log("Trigger Event: ", context.payload.action);
-    console.log(context.payload.pull_request.html_url);
     console.log(
-      "Github event: pull_request updated with new code for PR number =",
-      context.payload.pull_request.number
+      "Github event: pull_request updated with new code for PR number = ",
+      context.issue.number
     );
     const labelsToRemove = ["ready to pull"];
     return github.rest.issues.removeLabel({
