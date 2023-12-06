@@ -31,7 +31,7 @@ module.exports = async ({ github, context }) => {
       "Github event: pull_request updated with new code for PR number = ",
       context.issue.number
     );
-    const labelsToRemove = ["ready to pull"];
+    const labelsToRemove = ["awaiting review"];
     return github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -45,7 +45,7 @@ module.exports = async ({ github, context }) => {
       "Github event: pull_request updated with new code for PR number =",
       context.payload.pull_request.number
     );
-    const labelsToRemove = ["ready to pull"];
+    const labelsToRemove = ["awaiting review"];
     return github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -59,15 +59,6 @@ module.exports = async ({ github, context }) => {
       context.payload.pull_request.number
     );
     let labelsToAdd = ["awaiting review"];
-    return github.rest.issues.addLabels({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: context.issue.number,
-      labels: labelsToAdd,
-    });
-  }
-   else if (context.payload.action == "submitted") {
-    let labelsToAdd = ["ready to pull"];
     return github.rest.issues.addLabels({
       owner: context.repo.owner,
       repo: context.repo.repo,
