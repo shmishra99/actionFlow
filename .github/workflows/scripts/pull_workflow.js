@@ -15,13 +15,16 @@
  * =============================================================================
  */
 
-/** Automatically assign issues and PRs to users in the `assigneesList` 
- *  on a rotating basis.
-
+/** Automatically recognize the event and add label accordingly.
+    * For open events: Add a "size" label to provide additional information PR.
+    * For synchronized events: Remove the "awaiting review" label to indicate that the event is no longer pending review.
+    * For review request events: Add the "awaiting review" label to indicate that the PR requires review.
+    * For closed events: Remove the "awaiting review" label as it is no longer applicable.
   @param {!object}
     GitHub objects can call GitHub APIs using their built-in library functions.
     The context object contains issue and PR details.
 */
+
 module.exports = async ({ github, context }) => {
   console.log('Processing pull request number: ', context.issue.number)
   if (context.payload.action == "opened") {
