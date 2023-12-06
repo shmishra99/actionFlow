@@ -15,7 +15,7 @@
  * =============================================================================
  */
 
-/** Automatically recognize the event and add label accordingly.
+/** Automatically recognize the event and add/remove labels accordingly.
     * For open events: Add a "size" label to provide additional information PR.
     * For synchronized events: Remove the "awaiting review" label to indicate that the event is no longer pending review.
     * For review request events: Add the "awaiting review" label to indicate that the PR requires review.
