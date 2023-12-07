@@ -59,12 +59,12 @@ module.exports = async ({github, context}) => {
     console.log(
         'Github event: pull_request updated with new code for PR number = ',
         context.issue.number);
-    const labelsToRemove = 'ready to pull';
+    const labelsToRemove = 'keras-team-review-pending';
     return github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
-      name: labelsToRemove,
+      labels: labelsToRemove,
     });
   } else if (context.payload.action == 'closed') {
     console.log('Trigger Event: ', context.payload.action);
@@ -72,12 +72,17 @@ module.exports = async ({github, context}) => {
         'Github event: pull_request updated with new code for PR number =',
         context.payload.pull_request.number);
     const labelsToRemove = ['keras-team-review-pending','ready to pull'];
-    return github.rest.issues.removeLabel({
+    let status = []
+    for(let label of labelsToRemove){
+     let result = github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
-      labels: labelsToRemove,
+      name: label,
     });
+      status.push(result)
+    }
+    return status
   } else if (context.payload.action == 'review_requested') {
     console.log(
         'Github event: pull_request review requested for PR number =',
