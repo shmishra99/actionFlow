@@ -59,12 +59,12 @@ module.exports = async ({github, context}) => {
     console.log(
         'Github event: pull_request updated with new code for PR number = ',
         context.issue.number);
-    const labelsToRemove = 'keras-team-review-pending';
+    const labelsToRemove = 'ready to pull';
     return github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
-      labels: labelsToRemove,
+      name: labelsToRemove,
     });
   } else if (context.payload.action == 'closed') {
     console.log('Trigger Event: ', context.payload.action);
