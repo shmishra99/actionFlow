@@ -59,7 +59,7 @@ module.exports = async ({github, context}) => {
     console.log(
         'Github event: pull_request updated with new code for PR number = ',
         context.issue.number);
-    const labelsToRemove = ['keras-team-review-pending'];
+    const labelsToRemove = 'keras-team-review-pending';
     return github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
