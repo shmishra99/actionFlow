@@ -1,3 +1,4 @@
+
 /**
  * @license
  * Copyright 2023 Google LLC. All Rights Reserved.
@@ -14,78 +15,74 @@
  * limitations under the License.
  * =============================================================================
  */
-
-/** Automatically recognize the event and add/remove labels accordingly.
+/**
+  Automatically recognize the event and add/remove labels accordingly.
     * For open events: Add a "size" label to provide additional information PR.
-    * For synchronized events: Remove the "awaiting review" label to indicate that the event is no longer pending review.
-    * For review request events: Add the "awaiting review" label to indicate that the PR requires review.
-    * For closed events: Remove the "awaiting review" label as it is no longer applicable.
+    * For synchronized events: Remove the "awaiting review" label to indicate
+  that the event is no longer pending review.
+    * For review request events: Add the "awaiting review" label to indicate
+  that the PR requires review.
+    * For closed events: Remove the "awaiting review" label as it is no longer
+  applicable.
   @param {!object}
     GitHub objects can call GitHub APIs using their built-in library functions.
     The context object contains issue and PR details.
+  @return {!object}
 */
-
-module.exports = async ({ github, context }) => {
-  console.log('Processing pull request number: ', context.issue.number)
-  if (context.payload.action == "opened") {
-    console.log("Trigger Event: ", context.payload.action);
-    const size =
-      context.payload.pull_request.additions +
-      context.payload.pull_request.deletions;
-    let labelsToAdd = "";
+module.exports = async ({github, context}) => {
+  console.log('Processing pull request number: ', context.issue.number);
+  if (context.payload.action == 'opened') {
+    console.log('Trigger Event: ', context.payload.action);
+    const size = context.payload.pull_request.additions +
+        context.payload.pull_request.deletions;
+    let labelsToAdd = '';
     if (size < 9) {
-      labelsToAdd = "size:XS";
+      labelsToAdd = 'size:XS';
     } else if (size < 49) {
-      labelsToAdd = "size:S";
+      labelsToAdd = 'size:S';
     } else if (size < 249) {
-      labelsToAdd = "size:M";
+      labelsToAdd = 'size:M';
     } else if (size < 999) {
-      labelsToAdd = "size:L";
+      labelsToAdd = 'size:L';
     } else {
-      labelsToAdd = "size:XL";
+      labelsToAdd = 'size:XL';
     }
-    console.log('Applying size label : ', labelsToAdd)
+    console.log('Applying size label : ', labelsToAdd);
     return github.rest.issues.addLabels({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
       labels: [labelsToAdd],
     });
-  } 
-  else if (context.payload.action == "synchronize") {
-    console.log("Trigger Event: ", context.payload.action);
+  } else if (context.payload.action == 'synchronize') {
+    console.log('Trigger Event: ', context.payload.action);
     console.log(
-      "Github event: pull_request updated with new code for PR number = ",
-      context.issue.number
-    );
-    const labelsToRemove = ["awaiting review"];
+        'Github event: pull_request updated with new code for PR number = ',
+        context.issue.number);
+    const labelsToRemove = ['ready to pull'];
     return github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
       labels: labelsToRemove,
     });
-  }
-   else if (context.payload.action == "closed") {
-    console.log("Trigger Event: ", context.payload.action);
+  } else if (context.payload.action == 'closed') {
+    console.log('Trigger Event: ', context.payload.action);
     console.log(
-      "Github event: pull_request updated with new code for PR number =",
-      context.payload.pull_request.number
-    );
-    const labelsToRemove = ["awaiting review"];
+        'Github event: pull_request updated with new code for PR number =',
+        context.payload.pull_request.number);
+    const labelsToRemove = ['keras-team-review-pending','ready to pull'];
     return github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
       labels: labelsToRemove,
     });
-  } 
-  else if (context.payload.action == "review_requested") {
+  } else if (context.payload.action == 'review_requested') {
     console.log(
-      "Github event: pull_request review requested for PR number =",
-      context.payload.pull_request.number
-    );
-    let labelsToAdd = ["awaiting review"];
+        'Github event: pull_request review requested for PR number =',
+        context.payload.pull_request.number);
+    let labelsToAdd = ['keras-team-review-pending'];
     return github.rest.issues.addLabels({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -94,3 +91,4 @@ module.exports = async ({ github, context }) => {
     });
   }
 };
+No newline at end of right file.
