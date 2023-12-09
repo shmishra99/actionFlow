@@ -72,7 +72,7 @@ module.exports = async ({github, context}) => {
         'Github event: pull_request updated with new code for PR number =',
         context.payload.pull_request.number);
     const labelsToRemove = ['keras-team-review-pending','ready to pull'];
-    let status = []
+    let status = [];
     for(let label of labelsToRemove){
      let result = github.rest.issues.removeLabel({
       owner: context.repo.owner,
@@ -80,19 +80,8 @@ module.exports = async ({github, context}) => {
       issue_number: context.issue.number,
       name: label,
     });
-      status.push(result)
+      status.push(result);
     }
-    return status
-  } else if (context.payload.action == 'review_requested') {
-    console.log(
-        'Github event: pull_request review requested for PR number =',
-        context.payload.pull_request.number);
-    let labelsToAdd = ['keras-team-review-pending'];
-    return github.rest.issues.addLabels({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: context.issue.number,
-      labels: labelsToAdd,
-    });
+    return status;
   }
 };
