@@ -70,8 +70,8 @@ module.exports = async ({github, context}) => {
     });      
     }
     catch(e){
-       console.log(`${labelsToRemove} dosen't exist in the PR. \n`)
-       result =  `${labelsToRemove} dosen't exist in the PR. \n`
+       console.log(`'${labelsToRemove}' label dosen't exist in the PR. \n`)
+       result =  `'${labelsToRemove}' label dosen't exist in the PR.  \n`
     }
     return result
     
@@ -93,8 +93,8 @@ module.exports = async ({github, context}) => {
         result.push(response)
      }
       catch(e){
-           console.log(`${labelsToRemove} dosen't exist in the PR. \n`)
-           result.push( `${labelsToRemove} dosen't exist in the PR. \n`)
+           console.log(`'${labelsToRemove}' label dosen't exist in the PR. \n`)
+           result.push( `'${labelsToRemove}' label dosen't exist in the PR. \n`)
       }
     }
     return result;
