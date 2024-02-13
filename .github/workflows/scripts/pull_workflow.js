@@ -67,12 +67,10 @@ module.exports = async ({github, context}) => {
       repo: context.repo.repo,
       issue_number: context.issue.number,
       name: labelsToRemove,
-    });
-    console.log('Label is removed.')
-      
+    });      
     }
     catch(e){
-       console.log('Line 74..error catch.')
+       console.log(`${labelsToRemove} dosen't exist in the PR. \n`)
        result =  `${labelsToRemove} dosen't exist in the PR. \n`
     }
     return result
@@ -95,6 +93,7 @@ module.exports = async ({github, context}) => {
         result.push(response)
      }
       catch(e){
+           console.log(`${labelsToRemove} dosen't exist in the PR. \n`)
            result.push( `${labelsToRemove} dosen't exist in the PR. \n`)
       }
     }
