@@ -68,6 +68,7 @@ module.exports = async ({github, context}) => {
       issue_number: context.issue.number,
       name: labelsToRemove,
     });
+    console.log('Label is removed.')
       
     }
     catch(e){
