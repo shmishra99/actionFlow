@@ -60,21 +60,21 @@ module.exports = async ({github, context}) => {
         'Github event: pull_request updated with new code for PR number = ',
         context.issue.number);
     const labelsToRemove = 'ready to pull';
-    let result = ''
+    let result;
     try {
     result = await github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
       name: labelsToRemove,
-    });      
+    });
+    console.log(`'${labelsToRemove}' label removed successfully.\n`);
     }
     catch(e){
-       console.log(`'${labelsToRemove}' label dosen't exist in the PR. \n`)
-       result =  `'${labelsToRemove}' label dosen't exist in the PR.  \n`
+       console.log(`'${labelsToRemove}' label dosen't exist in the PR. \n`);
+       result = `'${labelsToRemove}' label dosen't exist in the PR.`;
     }
-    return result
-    
+    return result;
   } else if (context.payload.action == 'closed') {
     console.log('Trigger Event: ', context.payload.action);
     console.log(
@@ -90,11 +90,11 @@ module.exports = async ({github, context}) => {
       issue_number: context.issue.number,
       name: label,
     });
-        result.push(response)
+        result.push(response);
      }
       catch(e){
-           console.log(`'${label}' label dosen't exist in the PR. \n`)
-           result.push( `'${label}' label dosen't exist in the PR. \n`)
+          console.log(`'${label}' label dosen't exist in the PR. \n`);
+          result.push( `'${label}' label dosen't exist in the PR.`);
       }
     }
     return result;
