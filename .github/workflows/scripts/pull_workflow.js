@@ -84,7 +84,7 @@ module.exports = async ({github, context}) => {
     let result = [];
     for(let label of labelsToRemove){
       try {
-     let response = github.rest.issues.removeLabel({
+     let response = await github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
@@ -93,8 +93,8 @@ module.exports = async ({github, context}) => {
         result.push(response)
      }
       catch(e){
-           console.log(`'${labelsToRemove}' label dosen't exist in the PR. \n`)
-           result.push( `'${labelsToRemove}' label dosen't exist in the PR. \n`)
+           console.log(`'${label}' label dosen't exist in the PR. \n`)
+           result.push( `'${label}' label dosen't exist in the PR. \n`)
       }
     }
     return result;
