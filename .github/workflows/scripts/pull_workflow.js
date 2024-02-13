@@ -62,7 +62,7 @@ module.exports = async ({github, context}) => {
     const labelsToRemove = 'ready to pull';
     let result = ''
     try {
-    result =  github.rest.issues.removeLabel({
+    result = await github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
@@ -71,6 +71,7 @@ module.exports = async ({github, context}) => {
       
     }
     catch(e){
+       console.log('Line 74..error catch.')
        result =  `${labelsToRemove} dosen't exist in the PR. \n`
     }
     return result
