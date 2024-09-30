@@ -26,7 +26,7 @@ jobs:
                const reviews = await github.rest.pulls.listReviews({
                  owner,
                  repo,
-                 prNumber
+                 pull_number: prNumber
                });
               const approvedReview = reviews.data.find(review => review.state === "APPROVED");
               if (approvedReview) {
